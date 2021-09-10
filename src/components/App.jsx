@@ -11,6 +11,19 @@ export class App extends React.Component {
     filter: '',
   };
 
+  componentDidMount() {
+    console.log('mount');
+
+    const x = JSON.parse(localStorage.getItem('contacts'));
+    this.setState({ contacts: x });
+  }
+
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   console.log('update');
+  //   const { contacts } = this.state;
+  //   // localStorage.setItem('contacts', contacts);
+  // }
+
   HandleSearchContactByName = e => {
     this.setState({ filter: e.target.value });
   };
@@ -28,7 +41,7 @@ export class App extends React.Component {
 
   HandleClickDelete = e => {
     const { contacts } = this.state;
-    contacts.forEach((contact, index) => contact.id === e.target.id && contacts.splice(index,1));
+    contacts.forEach((contact, index) => contact.id === e.target.id && contacts.splice(index, 1));
     this.setState({ contacts: contacts });
   };
 
