@@ -12,17 +12,16 @@ export class App extends React.Component {
   };
 
   componentDidMount() {
-    console.log('mount');
-
-    const x = JSON.parse(localStorage.getItem('contacts'));
-    this.setState({ contacts: x });
+    const parseLocalContacts = JSON.parse(localStorage.getItem('contacts'));
+    if (parseLocalContacts) {
+      this.setState({ contacts: parseLocalContacts });
+    }
   }
 
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   console.log('update');
-  //   const { contacts } = this.state;
-  //   // localStorage.setItem('contacts', contacts);
-  // }
+  componentDidUpdate() {
+    const { contacts } = this.state;
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }
 
   HandleSearchContactByName = e => {
     this.setState({ filter: e.target.value });
